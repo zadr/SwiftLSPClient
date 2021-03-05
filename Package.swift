@@ -7,7 +7,7 @@ let package = Package(
     name: "SwiftLSPClient",
     platforms: [.macOS("10.10"), .iOS("14.0")],
     products: [
-        .library(name: "SwiftLSPClient", targets: ["SwiftLSPClient"]),
+        .library(name: "SwiftLSPClient", type: .dynamic, targets: ["SwiftLSPClient"]),
     ],
     dependencies: [],
     targets: [
