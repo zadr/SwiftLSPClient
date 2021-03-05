@@ -6,7 +6,6 @@
 //  Copyright © 2018 Chime Systems. All rights reserved.
 //
 
-#if os(macOS)
 import Foundation
 
 /// Represents a locally-running language server process.
@@ -112,5 +111,3 @@ public class LanguageServerProcessHost<Process: ProcessProtocol> {
         }
     }
 }
-
-#endif
