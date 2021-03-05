@@ -10,12 +10,17 @@ public protocol ProcessProtocol: AnyObject {
     var standardOutput: Any? { get set }
     var standardError: Any? { get set }
 
-	var terminationHandler: ((Process) -> Void)? { get set }
+	var _terminationHandler: ((ProcessProtocol) -> Void)? { get set }
 
     func launch()
     func terminate()
 }
 
 #if os(macOS)
-extension Foundation.Process : ProcessProtocol {}
+extension Foundation.Process : ProcessProtocol {
+	public var _terminationHandler: ((ProcessProtocol) -> Void)? {
+		get { fatalError("well this is annoying") }
+		set { terminationHandler = newValue }
+	}
+}
 #endif
