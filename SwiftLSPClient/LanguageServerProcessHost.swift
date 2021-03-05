@@ -49,7 +49,7 @@ public class LanguageServerProcessHost<Process: ProcessProtocol> {
         process.arguments = arguments
         process.environment = environment
 
-        process.terminationHandler = { [unowned self] (task) in
+        process._terminationHandler = { [unowned self] (task) in
             self.transport.close()
             self.terminationHandler?()
         }
