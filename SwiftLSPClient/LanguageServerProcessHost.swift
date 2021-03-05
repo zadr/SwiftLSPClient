@@ -18,7 +18,7 @@ import Foundation
 ///
 /// - Note: This class is not thread-safe. It is the caller's responsibility to
 /// ensure there are no concurrent accesses.
-public class LanguageServerProcessHost {
+public class LanguageServerProcessHost<Process: ProcessProtocol> {
     private let process: Process
     private let transport: StdioDataTransport
     private let server: JSONRPCLanguageServer
