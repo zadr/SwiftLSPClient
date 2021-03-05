@@ -15,6 +15,7 @@ Pod::Spec.new do |s|
     ts.source_files = 'SwiftLSPClientTests/**/*.swift'
   end
   
+  s.ios.deployment_target = '14.0'
   s.osx.deployment_target = '10.10'
   
   s.cocoapods_version = '>= 1.4.0'
