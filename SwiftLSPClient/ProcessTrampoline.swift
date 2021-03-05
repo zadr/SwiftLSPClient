@@ -1,3 +1,6 @@
+import Foundation
+
+@objc
 public protocol ProcessProtocol: AnyObject {
 	init()
 

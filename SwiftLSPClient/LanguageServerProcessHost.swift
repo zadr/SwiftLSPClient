@@ -17,8 +17,8 @@ import Foundation
 ///
 /// - Note: This class is not thread-safe. It is the caller's responsibility to
 /// ensure there are no concurrent accesses.
-public class LanguageServerProcessHost<Process: ProcessProtocol> {
-    private let process: Process
+public class LanguageServerProcessHost {
+    private let process: ProcessProtocol
     private let transport: StdioDataTransport
     private let server: JSONRPCLanguageServer
     private var launched: Bool
@@ -35,21 +35,26 @@ public class LanguageServerProcessHost<Process: ProcessProtocol> {
     ///   - path: The language server's executable path on disk.
     ///   - arguments: Command line arguments passed to the executable when launched.
     ///   - environment: Environment variables applied to the executable. If nil, the environment is inherited from the calling process.
-    public init(path: String, arguments: [String], environment: [String : String]? = nil) {
-        self.process = Process()
+    public init(
+		path: String,
+		arguments: [String],
+		environment: [String : String]? = nil,
+		process: AnyObject
+	) {
+		self.process = process as! ProcessProtocol
         self.transport = StdioDataTransport()
         self.server = JSONRPCLanguageServer(dataTransport: transport)
         self.launched = false
 
-        process.standardInput = transport.stdinPipe
-        process.standardOutput = transport.stdoutPipe
-        process.standardError = transport.stderrPipe
+		self.process.standardInput = transport.stdinPipe
+		self.process.standardOutput = transport.stdoutPipe
+		self.process.standardError = transport.stderrPipe
 
-        process.launchPath = path
-        process.arguments = arguments
-        process.environment = environment
+		self.process.launchPath = path
+		self.process.arguments = arguments
+		self.process.environment = environment
 
-        process._terminationHandler = { [unowned self] (task) in
+		self.process._terminationHandler = { [unowned self] (task) in
             self.transport.close()
             self.terminationHandler?()
         }
