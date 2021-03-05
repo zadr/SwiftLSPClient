@@ -14,7 +14,7 @@ An LSP server provides rich information about source code. An LSP client consume
 import SwiftLSPClient
 
 let executablePath = "path/to/your/lsp-server-executable"
-let host = LanguageServerProcessHost(path: executablePath, arguments: [],
+let host = LanguageServerProcessHost<Process>(path: executablePath, arguments: [],
     environment: [/* the environment your lsp server requires e.g. PATH */])
 
 host.start { (server) in
